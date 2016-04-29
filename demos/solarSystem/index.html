@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>-->
+		<script src="../../lib/three.min.js"></script>
+		<script src="../../lib/three_labels.js"></script>
+		<script type="text/javascript" src="https://use.typekit.net/pwk6ibv.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body class="yui3-skin-sam">
+		<a href="http://explorejs.space" class="madewith">Made with explorejs</a>
+	
+		<script src="../../lib/explore.js"></script>
+		<script src="OBJLoader.js"></script>
+		<script src="OrbitControls.js"></script>
+		<script src="MTLLoader.js"></script>
+		<script src="../../lib/build/yui/yui-min.js"></script>
+		<!-- <canvas id="earth" class="label"></canvas> -->
+		 	
+		  <aside id="controls">
+		  
+		  		<span>Target:</span>
+			    <select id="planetSelector">	    
+			      <option value="9">Sun</option>
+			      <option value="0">Mercury</option>
+			      <option value="1">Venus</option>
+			      <option value="2" selected="selected">Earth</option>
+			      <option value="3">Mars</option>
+			      <option value="4">Jupiter</option>
+			      <option value="5">Saturn</option>
+			      <option value="6">Uranus</option>
+			      <option value="7">Neptune</option>
+			      <option value="10">Voyager 1</option>
+			      <option value="11">Voyager 2</option>
+			      <option value="12">Dawn</option>
+			    </select>
+
+			    <br>
+			    <span id="movewcam"><input id="moveWithPlanet" type="checkbox"> Keep camera close to target </span>
+			    <span id="shwlabels"><input id="showLabels" type="checkbox" checked="true"> Show labels </span>
+			    <br>
+			    	<img src="Arrows.png" class="arrows">
+					<div id="demo"></div>
+					
+				    <h4 class="time">Time Dial: 1 Spin = 1 
+				    	<select id="timeSelector">
+						      <option value="10">Minute</option>
+						      <option value="600">Hour</option>
+						      <option value="14400">Day</option>
+						      <option value="100800">Week</option>
+						      <option value="438000">Month</option>
+						      <option value="5256000" selected="selected">Year</option>
+						      <option value="52560000">Decade</option>
+						      <option value="525600000">Century</option>
+						</select>
+					</h4>
+					<div id="curDate">Current Date and Time:</div>
+		   </aside>
+		   <div id="accuracy">A note on accuracy</div>
+		   <script src="script.js"></script>
+	</body>
+</html>

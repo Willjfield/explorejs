@@ -1,0 +1,213 @@
+*{
+  overflow: hidden;
+  font-family: "futura-pt",sans-serif;
+}
+.label{
+  display: none;
+}
+
+#controls{
+  font-weight: lighter;
+  z-index: 999;
+  transition: background 0.2s ease;
+  position:absolute;
+  bottom:0px;
+  padding-top:15px;
+  width:100%;
+  height:125px;
+  background:rgba(0,0,0,.2);
+  color:white;
+  font-family: Helvetica;
+}
+
+#controls:hover{
+  background:rgba(0,0,0,.7);
+  bottom:0px;
+}
+
+.selectPlanet{
+   border: 0px;
+   border-radius: 0px;
+   overflow: hidden;
+}
+
+body{
+  margin: 0 auto;
+  font-size: 28px;
+  overflow: hidden;
+}
+
+#speedSlider{
+  position: absolute;
+  display: block;
+  z-index: 999;
+  padding: 0;
+  margin: 0 auto;
+  bottom:40px;
+  left:10%;
+  width:80%;
+  background-color: rgba(0,0,0,0);
+}
+
+#planetSelector{
+  position: absolute;
+  left:90px;
+  top:25px;
+}
+
+#planetSelect{
+  position: absolute;
+  left:80px;
+  top:10px;
+}
+
+#resetTime{
+  position: absolute;
+  width:10%;
+  margin: 0 auto;
+  text-align: center;
+  left:45%;
+  bottom:5px;
+}
+
+.time{
+  position: absolute;
+  font-size:16px;
+  width:100%;
+  bottom:-20px;
+  text-align: center;
+}
+
+#fastForward{
+  position: absolute;
+  left:54%;
+}
+
+#rewind{
+  position: absolute;
+  left:46%;
+}
+
+.speedRW{
+  position: absolute;
+  transform: rotate(180deg);
+  bottom:-10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12.5px 0 12.5px 21.667px;
+  border-color: transparent transparent transparent #8e0000;
+}
+
+#speed-1{
+  left:0px;
+}
+
+#speed-2{
+    left:-20px;
+}
+
+.speedFF{
+  position: absolute;
+  bottom:-10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12.5px 0 12.5px 21.667px;
+  border-color: transparent transparent transparent #4ea742;
+}
+
+#speed1{
+  left:0px;
+}
+
+#speed2{
+  left:  20px;
+}
+
+#play{
+  position: absolute;
+  bottom:52px;
+  left:  50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12.5px 0 12.5px 21.667px;
+  border-color: transparent transparent transparent #999;
+}
+
+#demo{
+  position: absolute;
+  bottom:25px;
+  left:  50%;
+  transform: translate(-50.5px,0px);
+}
+
+#timeSelector{
+  transform: translate(0px,-2px);
+}
+
+.speedControls{
+  width:400px;
+  border: solid 1px white;
+}
+
+.arrows{
+  width:160px;
+  position: absolute;
+  bottom:50px;
+  left:  50%;
+  transform: translate(-80px,0px);
+  opacity: .5;
+}
+
+input[type="checkbox"]{
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:white;
+    cursor:pointer;
+}
+
+#curDate{
+  position: absolute;
+  bottom:0px;
+}
+
+#accuracy{
+  cursor:pointer;
+  color:white;
+  z-index: 999;
+  font-size: 12px;
+  position: absolute;
+  bottom:0px;
+  right:0px;
+  padding:5px;
+  border: 1px solid white;
+}
+
+#shwlabels{
+  position: absolute;
+  right:10px;
+  top:38px;
+}
+
+#movewcam{
+  position: absolute;
+  right:10px;
+  top:10px;
+}
+
+.madewith{
+  z-index: 999;
+  color:white;
+  position:absolute;
+  width:100px;
+  font-size: 12px;
+  text-align: center;
+  right:50%;
+  transform: translate(50px,0px);
+  background:black;
+}

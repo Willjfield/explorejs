@@ -1,0 +1,28 @@
+<html>
+<script src="explore.js"></script>
+<script src="http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js"></script>
+<script>
+// var obs = {latitude:40.6928,longitude:-73.9903,elevation:0}
+// console.log(xpl.MoonPos(xpl.now, obs))
+	var logValue = function(e){
+		console.log(e.newVal)
+	}
+
+	YUI().use('dial', function(Y) {
+	    var dial = new Y.Dial({
+	        min:-220,
+	        max:220,
+	        stepsPerRevolution:100,
+	        value: 0,
+	        after : {
+	           valueChange: Y.bind(logValue, dial)
+	        }
+	    });
+		dial.render("#demo");
+	});
+
+</script>
+<body class="yui3-skin-sam">
+	<div id="demo"></div>
+	</body>
+</html>

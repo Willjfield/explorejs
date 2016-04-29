@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Classified Satellites</title>
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+        <script src="../../lib/build/yui/yui-min.js"></script>
+        
+        <!--<script type="text/javascript" src="https://l2.io/ip.js?var=myip"></script>-->
+        <!--<script src="../../lib/three.min.js"></script>-->
+        <!--<script src="scripts/three.min.js"></script>-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r76/three.js"></script>
+        <script src="../../lib/explore.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://use.typekit.net/pwk6ibv.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        <!--<script src="../../lib/Tween.js"></script>-->
+    </head>
+    <body class="yui3-skin-sam">
+      <a href="http://explorejs.space" class="madewith">Made with explorejs</a>
+      <div id="loading"><span class="loadingText">Loading...<br><br><br>
+        <p class="shareLocation">Please make sure your browser is sharing your location in order for this demo to fully load. This information is not collected, seen or stored by anyone in any capacity.</p></span></div>
+      <div id="takeTour"><span class="taketourText">Take Tour</span></div>
+      <div class="modal" id="tour0Text">
+        <p>Around the world, a small but dedicated group of amateur astronomers track undocumented satellites using mainly consumer telescopes and stopwatches.<br> This is a real-time visualization of these satellites.<div class="btn" id="close">Close</div><div class="btn" id="next0">Start Tour</div>
+        </p>
+      </div>
+      
+        <aside id="controls">
+          <div class="toggles">
+            Show Lines of Sight <input id="linesOfSight" type="checkbox"> <br>
+            Highlight National Reconnaissance Satellites <input id="nroHighlight" type="checkbox"> <br>
+            Highlight Military Satellites<input id="milHighlight" type="checkbox"> <br>
+            Highlight Unknown Satellites<input id="unHighlight" type="checkbox"> <br>
+          </div>
+          <img src="Arrows.png" class="arrows">
+          <div id="demo"></div>     
+          <h4 class="time">Time Dial: 1 Spin = 1 
+            <select id="timeSelector">
+                  <option value="10">Minute</option>
+                  <option value="600" selected="selected">Hour</option>
+                  <option value="14400">Day</option>
+                  <option value="100800">Week</option>
+            </select>
+          </h4>
+        <div id="curDate"></div>
+        <a href="http://www.satobs.org/satintro.html"><div class='learnMore' >Learn more about amateur satellite tracking</div></a>
+        </aside>
+    </body>
+    <script>
+      $('.btn-close').on('click', function() {
+        $('.modal').hide();
+      });
+    </script>
+    
+    <script language="javascript" src="scripts/OrbitControls.js"></script>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+
+      uniform sampler2D dayTexture;
+      uniform sampler2D nightTexture;
+      uniform sampler2D normalTexture;
+      uniform sampler2D cloudTexture;
+      uniform float texOffset;
+
+      uniform vec3 sunDirection;
+
+      varying vec2 vUv;
+      varying vec3 vNormal;
+
+      void main( void ) {
+
+      		vec3 bumpDir = vec3(0.0,-0.2,1.0);
+                      vec3 dayColor = texture2D( dayTexture, vUv ).rgb;
+                      vec3 nightColor = texture2D( nightTexture, vUv ).rgb;
+                      vec3 cloudColor = texture2D(cloudTexture, vUv+vec2(texOffset,0.0)).rgb; 
+      		//RGB of our normal map
+      		vec3 NormalMap = texture2D(normalTexture, vUv).rgb;
+
+      		 //normalize our vectors
+      		vec3 N = normalize(NormalMap * 2.0 - 1.0);
+      		vec3 L = normalize(bumpDir * 2.0 - 1.0);
+      		float Diffuse = (dot(N, L)-0.5)*.25;
+
+      		// compute cosine sun to normal so -1 is away from sun and +1 is toward sun.
+          float cosineAngleSunToNormal = dot(normalize(vNormal), sunDirection);
+
+          // sharpen the edge beween the transition
+          cosineAngleSunToNormal = clamp( cosineAngleSunToNormal * 10.0, -1.0, 1.0);
+
+          // convert to 0 to 1 for mixing
+          float mixAmount = cosineAngleSunToNormal*0.5 + 0.5;
+
+          // Select day or night texture based on mix.
+          vec3 color = mix( (nightColor+(cloudColor*.2)), (dayColor+cloudColor), mixAmount )+Diffuse;
+          //the calculation which brings it all together
+          gl_FragColor = vec4( color, 1.0 );
+      }
+    </script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+
+      varying vec2 vUv;
+      varying vec3 vNormal;
+
+      void main()
+      {
+        vUv = uv;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        //vNormal = normalMatrix * normal;
+        vNormal = normal;
+        gl_Position = projectionMatrix * mvPosition;
+        //gl_Position = mvPosition;
+      }
+
+    </script>
+    <script language="javascript" src="script.js"></script>
+</html>

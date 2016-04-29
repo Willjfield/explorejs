@@ -1,0 +1,167 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+		<script type="text/javascript" src="https://use.typekit.net/pwk6ibv.js"></script>
+		<script>try{Typekit.load({ async: true });}catch(e){}</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
+	</head>
+	<body style="overflow-y:visible">
+		<script type="text/javascript" src="../script.js"></script>
+		<ul>
+			<h1 class="top-title">explore.js</h1>
+			<li><a href="../">Home</a></li>
+			<li><a href="../demos">Demos</a></li>
+			<li><a href="../download">Download</a></li>
+			<li><a href="./">Documentation</a></li>
+			<li><a href="../tutorials">Tutorials</a></li>
+			<li><a href="../about">About</a></li>
+			<li><a href="../credits">Credits</a></li>
+		</ul>
+		<ul class="documentationTop">
+			<ul class="category">
+				<h1>Planets</h1>
+				<p class="topic" tabindex="0">xpl.SolarSystem(<i>Planet,Time</i>)
+					<br>
+					<span class="topicDescription">This function returns the position of a planet at a specified time. The planet objects can be accessed from the xpl.planets planets array. The time is entered as a Julian Day. The returned position is described in an XYZ coordinate system with the Z-axis as up and the Sun's barrycenter at the origin. For a demonstration of this function, look at <a href="../tutorials/plotPlanetsP5">Drawing Planets in P5</a>
+					<code class="tutBody">
+//Look through each planet in the Solar System 
+//and find its current position
+
+for(var p=0;p< xpl.planets.length;p++){
+	var planet = xpl.planets[p]
+	var position = xpl.SolarSystem(planet,xpl.now)
+}
+					
+</code>
+</span>
+				</p>
+				<p class="topic" tabindex="0">xpl.planets(<i>Planet,Time</i>)
+					<br>
+					<span class="topicDescription">xpl.planets is an array of Planet Javascript objects. Planet objects contain all of the data needed to derive the position, rotation and obliqueness of each planet in our Solar System given a certain time.
+<code class="tutBody">
+//Look through each planet in the Solar System 
+//and store it as a variable called planet
+
+for(var p=0;p< xpl.planets.length;p++){
+	var planet = xpl.planets[p]
+}
+					
+</code>
+					</span>
+				</p>
+				<p class="topic" tabindex="0">xpl.planet(<i>name,number,[keplerian elements],radius,oblique,dayLength,yearLength,[color]</i>)
+					<br>
+					<span class="topicDescription">xpl.planet objects contain the information needed for tracking and drawing planets in our Solar System. They contain the name of the planet and its zero-indexed position in an array ordered by distance from the Sun. Next, it has the Keplerian elements or the numbers that can be used to derive its position at a given time. Finally, it contains information useful for drawing it including its radius, obliquity (how tilted it is), the day length, year length, and a rough approximation of its surface color.
+<code class="tutBody">	
+//Draw planets in p5
+
+function draw(){
+	xpl.updateTime()
+
+	for(var p in xpl.planets){
+		var planet = xpl.planets[p]
+		var position = xpl.SolarSystem(planet,xpl.now)
+		var radius = planet.radius
+		var planetColor = rgbColor
+
+		fill(planetColor.r,planetColor.g,planetColor.b)
+		push()
+			translate(position[0],position[3])
+			ellipse(0,0,radius,radius)
+		pop()
+	}
+}
+	
+</code>
+					</span>
+				</p>
+			</ul>
+			<ul class="category">
+				<h1>Time</h1>
+				<p class="topic" tabindex="0">xpl.now
+					<br>
+					<span class="topicDescription">xpl.now holds the current time as a Julian Date <i>as of when the script is loaded</i>. Julian dates (abbreviated JD or Jday) are the number of days since noon Universal Time on January 1, 4713 BCE (on the Julian calendar). For a detailed explanation of Julian Dates and an online converter tool, look at <a href="http://aa.usno.navy.mil/data/docs/JulianDate.php">The US Naval Obsrvatory's Julian Date Converter</a>
+<code class="tutBody">
+//Find planet Earth and determine its current position
+//as of when the script is executed
+
+var planet = xpl.planets[2]
+var position = xpl.SolarSystem(planet,xpl.now)
+console.log(position)
+	
+</code>
+					</span>
+				</p>
+				<p class="topic" tabindex="0">xpl.updateTime()
+					<br>
+					<span class="topicDescription">Since xpl.now is created when the script loads, you will need to update the time if you need a continous measurement. For instance, an animation can track planets and satellites in real time if xpl.updateTime() is called on each frame.
+<code class="tutBody">	
+//Find planet Earth and determine its current position
+//in each draw() loop. xpl.updateTime() will update the value
+//of xpl.now to the time as of when each draw() loop is executed.
+
+function draw(){
+	xpl.updateTime()
+	var planet = xpl.planets[2]
+	var position = xpl.SolarSystem(planet,xpl.now)
+	console.log(position)
+}
+	
+</code>
+					</span>
+				</p>
+				<p class="topic" tabindex="0">xpl.jday(year,month,day,hour,minute,second)
+					<br>
+					<span class="topicDescription">This function takes a time as an argument and converts it to a Julian day. 
+<code class="tutBody">
+//Use Javascript's native Date object 
+//to get the current date and converts 
+//it to a Julian day	
+var now = new Date()
+var julianDateNow = xpl.jday(now.getFullYear(),now.getMonth(),now.getDay(),now.getHours(),now.getMinutes,now.getSeconds())
+	
+</code>
+					</span>
+				</p>
+				
+			</ul>
+			<br><br>
+			<ul class="category" style="background:transparent;"><i>Further documentation in progress...</i></ul>
+<!-- 				<h1>Spatial Coordinates</h1>
+				<p class="topic">Earth Centered Inertial (ECI) – Geocentric, XYZ</p>
+				<p class="topic">Earth Centered Earth Fixed (ECF or ECEF) – Geocentric, XYZ</p>
+				<p class="topic">Heliocentric (XYZ)</p>
+				<p class="topic">Altitude/Azimuth or Altitude/Elevation – Look Angles</p>
+				<p class="topic">Right Ascnesion/Declination – Geocentric</p>
+				<p class="topic">Conversion</p>
+			</ul>
+			<ul class="category">
+				<h1>Time Frames</h1>
+				<p class="topic">Epoch</p>
+				<p class="topic">Julian Date</p>
+				<p class="topic">Gregorian</p>
+				<p class="topic">GST</p>
+				<p class="topic">UTC</p>
+				<p class="topic">Conversions</p>
+			</ul>
+			<ul class="category">
+				<h1>Planets</h1>
+				<p class="topic">Create</p>
+				<p class="topic">Positions</p>
+				<p class="topic">Rotations</p>
+				<p class="topic">Attributes</p>
+			</ul>
+			<ul class="category">
+				<h1>Satellites</h1>
+				<p class="topic">Satellite Object</p>
+				<p class="topic">Update Satellite Information</p>
+			</ul>
+			<ul class="category">
+				<h1>Data</h1>
+				<p class="topic">Textures</p>
+				<p class="topic">TLE</p>
+				<p class="topic">Probe positions</p> -->
+			</ul>
+		</ul>
+	</body>
+</html>

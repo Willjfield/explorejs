@@ -1,0 +1,252 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../../../style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
+		<script src="https://use.typekit.net/pwk6ibv.js"></script>
+		<script>try{Typekit.load({ async: true });}catch(e){}</script>
+		
+	</head>
+	<body style="overflow:visible;">
+		<script type="text/javascript" src="../../script.js"></script>
+		<ul>
+			<h1 class="top-title">explore.js</h1>
+			<li><a href="../../">Home</a></li>
+			<li><a href="../../download">Download</a></li>
+			<li><a href="../../demos">Demos</a></li>
+			<li><a href="../../documentation">Documentation</a></li>
+			<li><a href="../">Tutorials</a></li>
+			<li><a href="../../about">About</a></li>
+			<li><a href="../../credits">Credits</a></li>
+		</ul>
+		<p class="tutContent">
+			Drawing the Solar System in p5 with explore.js
+			<br><br><br>
+			<iframe src="demo/index.html" class="tutdemo"></iframe>
+			<br><br><br>
+			In this tutorial, I'll explain how to draw the planets in the Solar System using the explore.js library using P5.js for graphics. If you've never used P5.js before, you may want to check out <a href="http://www.p5js.org">p5js.org</a> first, but you should still be able to follow this tutorial if you are familiar with Javascript.
+			<br><br>
+			First, we'll initialize some of our variables. Drawing everything from the center outwards is the easiest way to think of our Solar System, so we want to keep track of where the center is with the variables centerX and centerY.
+			<br><br>
+			Next, we'll use a couple of variables to keep track of the time, date and play speed. Finally, we'll set some variables that describe how big to draw the Solar System and how much we want to scale the planets. If we were to attempt to draw the planets at their actual size, they would be far too small to show up in virtually any view we would want.
+<code class="tutBody">
+var centerX, centerY
+
+var speed = 0
+var tOffset = 0
+var date
+
+var solarScale  = 15
+var planetScale = .001
+
+</code>
+	<span class="tutExplanation">
+		<br><br>
+		P5 programs are called sketches. Every sketch includes the two functions setup() and draw(). setup() initializes everything we'll need and draw() is a loop that runs once on every frame. In our setup() function, all we really need to do is create a canvas the size of our window and initialize our center variables to store where the center of this canvas is.
+		<br><br>
+	</span>
+<code class="tutBody">
+function setup(){
+	createCanvas(windowWidth, windowHeight)
+	centerX = width/2
+	centerY = height/2
+}
+
+</code>
+	<span class="tutExplanation">
+		<br><br>
+		Next, we'll get to the draw() function. This is sort of the heart of the program. In short, what we'll do is update the current time, draw the Sun, cycle through the planets drawing first the paths of the orbits and then the planets themselves.xpl.updateTime() calls a function in the explore library that updates the time. explore.js keeps track of time with the Julian Date. To learn more about how Julian Dates work, visit the <a href="http://aa.usno.navy.mil/data/docs/JulianDate.php">US Naval Observatory website</a>.
+		<br><br>
+		After updating the time, we can accurately derive the planets' locations and draw. The first thing we'll draw is the Sun. imageMode(CENTER) will draw everything from the center out. The next few lines will draw a circle at the center of the screen with a radius of 5.
+		<br><br>
+	</span>
+<code class="tutBody">
+function draw(){
+	xpl.updateTime()
+	background(0)
+	imageMode(CENTER)
+	noStroke()
+	fill(255)
+	ellipse(centerX,centerY,5,5)
+
+</code>
+	<span class="tutExplanation">
+		<br><br>
+		Now, while still inside of the draw() loop, we will create a for loop that looks at every planet inside xpl.planets. xpl.planets is an array of planet objects in the explore.js library. First, we'll call the current planet we're looking at "planet". Then we can store that planet's position, radius and color.
+		<br><br>
+		The position of planets we get with the function xpl.SolarSystem(). This function takes two arguments. The first is which planet we want to return the position of and the second argument is the time at which we want to find out the position. The time, in this case, is the current time, xpl.now, plus the tOffset which can be set by the user. The position of the planets is returned as an array in heliocentric coordinates. This can cause a lot of confusion because heliocentric coordinates are described with the Z-axis as up. This can be confusing because most graphics programs use a Y-axis up system. <b>Be sure to keep this in mind when dealing with coordinates</b> 
+		<br><br>
+		The radius is also store in the planet object but we need to multiply it by our planet scale. Each planet also has a rough surface color associated with it that is stored in the planet object.
+		<br><br>
+	</span>
+<code class="tutBody">
+	for(var p=0;p< xpl.planets.length;p++){
+		var planet = xpl.planets[p]
+		var position = xpl.SolarSystem(planet,xpl.now+tOffset)
+		var radius = planet.radius*planetScale
+		var planetColor = color(planet.rgbColor.r,
+								planet.rgbColor.g,
+								planet.rgbColor.b)
+
+</code>
+	<span class="tutExplanation">
+		<br><br>
+		Still in the draw() loop, we want to create a new coordinate system by using push() and pop(). Refer to the <a href="http://p5js.org/reference/#/p5/push">p5js documentation</a> to understand push() and pop() further. Now, starting from the center, we will draw the orbital paths of the planets by propagating its position inside of a for loop. The trail step takes the number of days in the planets year (one full trip around the Sun) and divides it by the number of segments you'll want in your line. Next, it simple draws a line from the previous point to the next point.
+		<br><br>
+	</span>
+<code class="tutBody">
+		push()
+			translate(centerX,centerY)
+			var trailStep = (planet.yearLength/64)
+			for(var trail = 0;trail< planet.yearLength;trail+=trailStep){
+				var t1 = xpl.SolarSystem(planet,xpl.now+tOffset-trail)
+				var t2 = xpl.SolarSystem(planet,xpl.now+tOffset-trail-trailStep)
+				stroke(255)
+				line(t1[0]*solarScale,
+					t1[1]*solarScale,
+					t2[0]*solarScale,
+					t2[1]*solarScale)
+			}
+
+</code>
+	<span class="tutExplanation">
+		<br><br>
+		Now, we draw the actual planets as circles. manageSlider() deals with the time controls.
+		<br><br>
+	</span>
+<code class="tutBody">
+			fill(planetColor)
+			noStroke()
+			ellipse(position[0]*solarScale,
+					position[1]*solarScale,
+					radius,
+					radius)
+		pop()
+	}
+	manageSlider()
+}
+
+</code>
+	<span class="tutExplanation">
+		<br><br>
+		manageSlider() looks for a global speed variable. The speed variable is set below with event listeners on the buttons. Depending on the speed, a step of a certain size is added to the timeOffset variable on each frame. A large step added on each frame makes the simulation play faster.
+		<br><br>
+	</span>
+<code class="tutBody">
+function manageSlider(){
+	var dir = speed > 0
+	dir *= 2
+	dir -= 1
+
+	if(speed< 0){
+		document.getElementById("timescale").innerHTML+=' backwards'
+	}
+
+	switch(Math.abs(speed)){
+		case 0:
+			step = 0
+			document.getElementById("timescale").innerHTML = 'Second'
+		break;
+		case 1:
+			step = 0.00001157407 * dir// 1 min/sec
+			document.getElementById("timescale").innerHTML = 'Minute'
+		break;
+		case 2:
+			step = 0.00069166666 * dir// 1 hr/sec
+			document.getElementById("timescale").innerHTML = 'Hour'
+		break;
+		case 3:
+			step = 0.0166 * dir// 1 day/sec
+			document.getElementById("timescale").innerHTML = 'Day'
+		break;
+		case 4:
+		 	step = 0.498 * dir// 1 month/sec
+		 	document.getElementById("timescale").innerHTML = 'Month'
+		break;
+		case 5:
+			step = 5.976 * dir// 1 yr/sec
+			document.getElementById("timescale").innerHTML = 'Year'
+		break;
+	}
+	//add step to tOffset which used throughout the sketch
+	tOffset+=step
+
+	/*the date takes the current time and adds the offset. 
+	This is stored as a Julian Date
+	We need to convert the date from a Julian date to a calendar date. 
+	-5 is our timezone offset from gmt*/
+
+	date = xpl.dateFromJday(xpl.now+tOffset,-5)
+
+	//now well draw the date
+	noStroke()
+	fill(255)
+	textSize(30)
+	textAlign(CENTER)
+	text(date.month + "/",50,height-50)
+	text(date.day + "/",90,height-50)
+	text(date.year,150,height-50)
+}
+
+//This simply resizes the sketch when the window dimensions change
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  centerX = windowWidth/2
+  centerY = windowHeight/2
+}
+
+//The following are event listeners that change
+// the speed and time when a button is clicked.
+document.getElementById("fastForward").addEventListener('click',function(){
+	var rewind = document.getElementById("rewind")
+	rewind.innerHTML = "&lt;div id='speed-1' class='speedRW'&gt;&lt;/div&gt;"+
+	"&lt;div id='speed-2' class='speedRW'&gt;&lt;/div&gt;"
+	speed++
+	speed < 0 ? speed = 0 : {}
+	if(speed< 6){
+		for(var s=0; s< speed; s++){
+			var name = "speed"+speed+1
+			var fastforward = document.getElementById("fastForward")
+			fastforward.innerHTML+="&lt;div id="+name+" class='speedFF'&gt;&lt;/div&gt;"
+			document.getElementById(name).style.borderColor = 
+			"transparent transparent transparent #0f0"
+			document.getElementById(name).style.left = (speed*20)+'px'
+		}
+	}
+})
+
+document.getElementById("rewind").addEventListener('click',function(){
+	var fastfoward = document.getElementById("fastForward")
+	fastforward.innerHTML = "&lt;div id='speed1' class='speedFF'&gt;&lt;/div&gt;"+
+	"&lt;div id='speed2' class='speedFF'>&lt;/div&gt;"
+	speed--
+	speed > 0 ? speed = 0 : {}
+	if(speed>-6){
+		for(var s=0; s>speed; s--){
+			var name = "speed-"+speed
+			document.getElementById("rewind").innerHTML+="&lt;div id="+name+
+			"class='speedRW'&gt;&lt;/div&gt;"
+			document.getElementById(name).style.borderColor = 
+			"transparent transparent transparent #f00"
+			document.getElementById(name).style.left = (speed*20)+'px'
+		}
+	}
+})
+
+document.getElementById("play").addEventListener('click',function(){
+	speed=0
+	document.getElementById("fastForward").innerHTML = 
+	"&lt;div id='speed1' class='speedFF'>&lt;/div&gt;"+
+	"&lt;div id='speed2' class='speedFF'&gt;&lt;/div&gt;"
+	document.getElementById("rewind").innerHTML = "&lt;div id='speed-1'"+
+	" class='speedRW'>&lt;/div&gt;&lt;div id='speed-2' class='speedRW'>&lt;/div&gt;"
+})
+
+document.getElementById("resetTime").addEventListener("click",function(event){
+	tOffset = 0
+})
+
+			</code>
+
+		</p>
+	</body>
+</html>

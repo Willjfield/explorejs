@@ -1,0 +1,422 @@
+body{
+	background:black;
+	margin: 0 auto;
+	overflow-x: hidden;
+}
+
+ul {
+	z-index: 999;
+	position: fixed;
+	top:0px;
+	left:4%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: transparent;
+    font-weight: lighter;
+    font-family: "futura-pt",sans-serif;
+}
+
+li a {
+    display: block;
+    background-color: rgba(0,0,0,.3);
+    border: 1px solid white;
+    color: white;
+    padding: 8px 0 8px 0;
+    margin-bottom: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+a{
+	text-decoration: none;
+	color: grey;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.top-title{
+	font-weight: bolder;
+	color:white;
+	text-align: center;
+	font-family: "futura-pt",sans-serif;
+}
+
+.welcome{
+	position: absolute;
+	padding: 50px;
+	top: 11%;
+	bottom:0px;
+	left: 25%;
+	margin: 0 auto;
+	width:60%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	font-family: "futura-pt",sans-serif;
+	color:white;
+	text-align: center;
+	font-family: "futura-pt",sans-serif;
+	font-size: 24px;
+}
+
+.about{
+	position: absolute;
+	padding: 50px;
+	top: 11%;
+	left: 25%;
+	margin: 0 auto;
+	width:60%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	font-family: "futura-pt",sans-serif;
+	color:white;
+	text-align: left;
+	font-family: "futura-pt",sans-serif;
+	font-size: 24px;
+}
+
+.tutContent{
+	position: absolute;
+	padding: 50px;
+	top: 11%;
+	left: 25%;
+	margin: 0 auto;
+	width:60%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	font-family: "futura-pt",sans-serif;
+	color:white;
+	text-align: left;
+	font-family: "futura-pt",sans-serif;
+	font-size: 24px;
+}
+
+.exampleMenu{
+	position: absolute;
+	width:25%;
+	top:25%;
+	left:37.5%;
+}
+
+.documentationTop{
+	z-index: 0;
+	position: absolute;
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	/*background: rgba(0,0,0,.4);*/
+	font-family: "futura-pt",sans-serif;
+	color:white;
+	text-align: left;
+	font-size: 22px;
+}
+
+.category{
+	position: relative;
+	margin: 0 auto;
+	width:50%;
+	background: rgba(0,0,0,.4);
+	color:white;
+	text-align: left;
+	font-family: "futura-pt",sans-serif;
+}
+
+.topic{
+	margin: 0;
+	cursor:pointer;
+	padding:10px;
+}
+.topic:focus{
+	outline:none;
+}
+.topic:focus .topicDescription{
+	display:block;
+	border:1px solid white;
+	padding:10px;
+	max-height:100%;
+	-webkit-transition: max-height 0.5s;
+	-moz-transition: max-height 0.5s;
+	transition: max-height 0.5s;
+}
+
+.topicDescription{
+	display:block;
+	max-height: 0;
+	overflow: hidden;
+	-webkit-transition: max-height 0.5s;
+	-moz-transition: max-height 0.5s;
+	transition: max-height 0.5s;
+}
+
+.credits{
+	position: absolute;
+	padding: 50px;
+	top: 11%;
+	left: 25%;
+	margin: 0 auto;
+	width:50%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	font-family: "futura-pt",sans-serif;
+	color:white;
+	text-align: left;
+	font-family: "futura-pt",sans-serif;
+	font-size: 24px;
+}
+.demos, .tuts{
+	position: absolute;
+	width: 500px;
+	height: 360px;
+	left:50%;
+	transform:translate(-50%,0%);
+	top:10%;
+    font-family: "futura-pt",sans-serif;
+    background: rgba(0,0,0,.8);
+}
+
+.tuts{
+	width:;
+}
+
+.tutdemo{
+	width:100%;
+	height:600px;
+	border: 1px solid white;
+}
+
+.tutBody{
+	font-size: 16px;
+	background:rgba(255,255,255,.75);
+}
+
+code, pre{
+	width:100%;
+	position: relative;
+	padding: 0;
+    color: black;
+    background: white;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    display: inline-block;
+    word-spacing: normal;
+
+    word-break: normal;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+.tutExplanation{
+	display:inline-block;
+	padding:10px;
+	background:rgba(0,0,0,.5);
+}
+
+/*pre { 
+	position: relative;
+	font: 100% courier,monospace; 
+	border: 1px solid #ccc; 
+	overflow: auto; 
+	overflow-x: scroll; 
+	width: 50%; 
+	padding: 0 1em 1em 1em; 
+	margin: 1em auto 2em auto; 
+	background: #fff7f0; 
+	color: #000 
+}*/
+
+.demobox, .tutbox{
+	border: 1px solid white;
+	width:300px;
+	height:150px;
+    color: white;
+/*    padding: 8px 0 8px 0;
+    margin: 15px;*/
+    text-align: center;
+}
+
+.demobox a,.tutbox a {
+	text-decoration: none;
+	color:white;
+}
+
+.demobox:hover, .tutbox:hover {
+	box-sizing: border-box;
+   border: 1px solid;
+   border-color: rgba(255,255,255,.5);
+   background:rgba(64,64,64,.5);
+}
+
+.tutbox{
+	width: 200px;
+	height:200px;
+}
+
+.openBelow {
+    display: none;
+}
+
+.openNew{
+	display: none;
+}
+
+.openBelow:hover{
+	background:#666;
+}
+
+.openNew:hover{
+	background:#666;
+}
+
+.demoPresentDiv{
+	position:absolute;
+	overflow: hidden;
+	width:100%;
+	height:100%;
+	left:50%;
+	transform:translate(-50%,0%);
+	background:rgba(40,40,40,.7);
+	z-index: 999;
+}
+
+tr{
+	height:300px;
+}
+#closeBox{
+	z-index: 999;
+	width:40px;
+	height:40px;
+	font-size: 30px;
+	border: 1px solid white;
+	border-radius: 50%;
+	position: absolute;
+	top:3%;
+	left:3%;
+	color:white;
+	font-weight: lighter;
+	font-family: sans-serif;
+	text-align: center;
+	cursor: pointer;
+	background:black;
+}
+
+#closeBox:after {
+    content: '\d7';
+}
+
+#closeBox:hover{
+	background:grey;
+}
+
+iframe{
+	z-index: 999;
+	border:none;
+	background: black;
+	overflow: hidden;
+}
+
+.overflowNotHidden{
+	overflow: visible;
+}
+
+.demoBelow{
+	z-index: 999;
+	position:absolute;
+	width:85%;
+	height:85%;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	overflow: hidden;
+}
+
+.demobox:hover .openNew {
+    display: inline-block;
+    position: relative;
+    margin: 2 auto;
+    height:20px;
+    width:150px;
+    bottom:0px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.demobox:hover .openBelow {
+    display: inline-block;
+    position: relative;
+    margin: 2 auto;
+    height:20px;
+    width:150px;
+    bottom:0px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.downloadBtnContainer{
+	position: absolute;
+	top:20%;
+	display:block;
+	margin: 0 auto;
+	width:100%;
+}
+
+.demothumb{
+	position: relative;
+	top:0px;
+}
+
+.demobox:hover .demothumb{
+	opacity: .7;
+}
+
+.downloadBtn{
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 25px;
+	width:20%;
+    background-color: rgba(0,0,0,.3);
+    border: 1px solid white;
+    color: white;
+    padding: 16px 0 16px 0;
+    text-decoration: none;
+    text-align: center;
+    font-family: "futura-pt",sans-serif;
+}
+
+.downloadBtn:hover{
+	background-color: #555;
+    color: white;
+}
+.videoScreen{
+	z-index: 999;
+	width:100%;
+}
+
+#mobileDevice{
+	position: absolute;
+	padding:10px;
+	color:white;
+	z-index: 999;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	display:none;
+	background:black;
+	border:1px solid white;
+	font-size: 36px;
+}

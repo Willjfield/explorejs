@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sundial Simulator</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<!-- <script src="three.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
+		<script src="OrbitControls.js"></script>
+		<script src="OBJLoader.js"></script>
+		<script src="../../../lib/build/yui/yui-min.js"></script>
+		<script src="https://use.typekit.net/pwk6ibv.js"></script>
+		<script>try{Typekit.load({ async: true });}catch(e){}</script>
+		<!--<script src="explore.js"></script>-->
+		<!--<script type="text/javascript" src="../../explore/explore.js"></script>-->
+		<script src="../../../lib/explore.js"></script>
+	</head>
+
+	<body class="yui3-skin-sam">
+	<a href="http://explorejs.space" class="madewith">Made with explorejs</a>
+			<!-- <div id="sliderTitle"> Time Speed </div> -->
+		<h1 id="loading"> LOADING </h1>
+		<h1 id="loadAmount"></h1>
+		
+		<p id="date"></p>
+		<input type="text" placeholder="mm/dd/yyyy" id="setDate"><button id="submitDate" type="button">Submit Date</button>
+
+		
+
+		<div id="nightTime">It is currently nightime. Spin the dial at the bottom to see the sun come up.</div>
+
+		<div id="timeExplanation" class="timeExplanationCl">The way we measure time is continually changing. <br>The time displayed here does not take into account Daylight Savings Time (DST), which has changed constantly in different jurisdictions since its invention in the early 20th century. Therefore, there is no way to accurately display the time for prior dates using DST.<br><br>You may also notice that if you enter a date before 1582, it will be off by several days. The Gregorian calendar was instituted in 1582. Any date entered prior to then is automatically converted to the Julian calendar.</div>
+
+		<div class="timeExplanationCl" id="info">
+			The sundial presented here was found in the Villa Palombara on the Esquiline Hill in Rome.
+			<br><br>
+			This simulation locates it precisely at:
+			<br>
+			<p id="latlong"></p>
+		</div>
+
+		<p id="credit" class="timeExplanationCl"> Sundial Simulator <a href="willjfield.com">Will Field</a>, 2016<br> Computational Photography and<br>3D Modeling for the Ancient World<br>
+		with Sebastian Heath, NYU<br>
+        Photogrammetry by the <a href = "https://www.topoi.org/project/d-5-6/">Berlin Sundial Project</a> 
+
+		<div id="intro"><p id="infoText"><a href="http://www.ancient-astronomy.org/en/2013/05/03/antike-sonnenuhren/">The Berlin Sundial Project </a>has 3D scanned and archived dozens of sundials from ancient Greece and Rome. The sundial presented here was found in the Villa Palombra in Rome and dates to the first century BCE. <br><br>Use the mouse to navigate through the scene. Use the time dial to change the time and date or enter the date in the text box.<br><br></p><div class="btn" id="close">Close</div><div class="btn" id="next">Tour</div></div>
+		<aside id="controls">
+			<div id="moreInfo">More Info
+				<p id="takeTour" class="questions">Take a tour</p>
+				<p id="timeRight" class="questions">Why isn't the time "right"?</p>
+				<p id="location" class="questions">Where is the Sundial?</p>
+				<p id="creditButton" class="questions">Credits</p>
+			</div>
+          <img src="Arrows.png" class="arrows">
+          <div id="demo"></div>     
+          <h4 class="time">1 Dial Spin = 1 
+            <select id="timeSelector">
+                  <option value="10">Minute</option>
+                  <option value="600">Hour</option>
+                  <option value="14400" selected="selected">Day</option>
+                  <option value="100800">Week</option>
+                  <option value="438000">Month</option>
+			      <option value="5256000">Year</option>
+			      <option value="52560000">Decade</option>
+			      <option value="525600000">Century</option>
+            </select>
+         	</h4>	
+   			
+		</aside>
+	<!-- 	<div id="timeline">
+			<input id="speedSlider" onmouseup="mouseUp()" type="range"></input><br>
+
+
+			<div id="rt">Real-Time</div>
+			<div id="wrapper">
+				<div id="rewind"> Rewind</div>
+				<div id="forward">Fast Forward </div>
+			</div>
+		</div> -->
+				<!--FOR PLACING GNOMON ONLY-->
+		<!-- <input id="zGnomon" onchange="gzMouseDown()" type="range"></input>
+		<input id="yGnomon" onchange="gyMouseDown()" type="range"></input> -->
+		<script src="scene.js"></script>
+		    
+	</body>
+</html>
